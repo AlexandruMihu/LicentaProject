@@ -20,7 +20,7 @@ public class CoinManager:Singletone<CoinManager>
         }
         else
         {
-           Coins = CoinTest;
+            Coins = CoinTest;
             SaveGame.Save(COIN_KEY, Coins);
         }
     }

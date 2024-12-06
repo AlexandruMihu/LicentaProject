@@ -8,7 +8,8 @@ public enum ItemType
     Potion,
     Scroll,
     Ingredients,
-    Treasure
+    Treasure,
+    Seed
 }
 
 [CreateAssetMenu(menuName ="Items/Item")]
