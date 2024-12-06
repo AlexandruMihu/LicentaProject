@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Enemy_GoldRacoon
+  m_Controller: {fileID: 9100000, guid: a94c295633573a9459bdf388c275c993, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: dd415fd4b7a228d4f834784069ec6159, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5ef5bab3ed1a6464dabe0f15c801ee9f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: fd5664faed8df484682a37ec85e3c74c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 71237941a224b01458112ef728776371, type: 2}
