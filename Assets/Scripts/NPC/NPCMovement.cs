@@ -14,7 +14,7 @@ public class NPCMovement : MonoBehaviour
     private Animator animator;
     private Vector3 previousPos;
     private int currentPointIndex;
-    private bool canMove = true; // Boolean to control NPC movement
+    private bool canMove = true;
 
 
     private void Awake()
@@ -25,7 +25,7 @@ public class NPCMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!canMove) return; // Check if the NPC is allowed to move
+        if (!canMove) return;
 
         Vector3 nextPos = waypoint.getPosition(currentPointIndex);
         UpdateMoveValues(nextPos);

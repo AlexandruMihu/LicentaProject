@@ -128,6 +128,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Farming",
+            "id": "c58f10bf-2c89-4a8d-acfa-df895489ffec",
+            "actions": [
+                {
+                    "name": "Plant",
+                    "type": "Button",
+                    "id": "a5130c0a-a55a-4049-a9fb-9fffa7bf45c1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4a43c60b-ce51-4783-8e32-78622a9d831b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Plant",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

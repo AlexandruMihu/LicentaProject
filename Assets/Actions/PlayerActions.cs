@@ -150,6 +150,34 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Farming"",
+            ""id"": ""c58f10bf-2c89-4a8d-acfa-df895489ffec"",
+            ""actions"": [
+                {
+                    ""name"": ""Plant"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5130c0a-a55a-4049-a9fb-9fffa7bf45c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4a43c60b-ce51-4783-8e32-78622a9d831b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Plant"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -163,6 +191,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         // Dialogue
         m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
         m_Dialogue_Interact = m_Dialogue.FindAction("Interact", throwIfNotFound: true);
+        // Farming
+        m_Farming = asset.FindActionMap("Farming", throwIfNotFound: true);
+        m_Farming_Plant = m_Farming.FindAction("Plant", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -358,6 +389,52 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         }
     }
     public DialogueActions @Dialogue => new DialogueActions(this);
+
+    // Farming
+    private readonly InputActionMap m_Farming;
+    private List<IFarmingActions> m_FarmingActionsCallbackInterfaces = new List<IFarmingActions>();
+    private readonly InputAction m_Farming_Plant;
+    public struct FarmingActions
+    {
+        private @PlayerActions m_Wrapper;
+        public FarmingActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Plant => m_Wrapper.m_Farming_Plant;
+        public InputActionMap Get() { return m_Wrapper.m_Farming; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FarmingActions set) { return set.Get(); }
+        public void AddCallbacks(IFarmingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_FarmingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_FarmingActionsCallbackInterfaces.Add(instance);
+            @Plant.started += instance.OnPlant;
+            @Plant.performed += instance.OnPlant;
+            @Plant.canceled += instance.OnPlant;
+        }
+
+        private void UnregisterCallbacks(IFarmingActions instance)
+        {
+            @Plant.started -= instance.OnPlant;
+            @Plant.performed -= instance.OnPlant;
+            @Plant.canceled -= instance.OnPlant;
+        }
+
+        public void RemoveCallbacks(IFarmingActions instance)
+        {
+            if (m_Wrapper.m_FarmingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IFarmingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_FarmingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_FarmingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public FarmingActions @Farming => new FarmingActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -369,5 +446,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     public interface IDialogueActions
     {
         void OnInteract(InputAction.CallbackContext context);
+    }
+    public interface IFarmingActions
+    {
+        void OnPlant(InputAction.CallbackContext context);
     }
 }

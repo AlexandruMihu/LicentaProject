@@ -10,7 +10,23 @@ public class CropSpot : MonoBehaviour
     private bool isPlanted = false;
 
     [Header("Visuals")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
+  //  [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject interactionBox;
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            interactionBox.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            interactionBox.SetActive(false);
+        }
+    }
 
     public void PlantSeed(ItemSeed seed)
     {
@@ -20,17 +36,15 @@ public class CropSpot : MonoBehaviour
         isPlanted = true;
         growthTimer = 0f;
 
-        cropData = new CropData
-        {
-            cropName = seed.cropName,
-            icon = seed.cropIcon,
-            growthTime = seed.growthTime,
-            growthStages = seed.growthStages,
-            harvestCount = seed.harvestCount,
-            harvestedItem = new InventoryItem[] { seed.harvestItem }
-        };
+        cropData = ScriptableObject.CreateInstance<CropData>(); 
+        cropData.cropName = seed.cropName;
+        cropData.icon = seed.cropIcon;
+        cropData.growthTime = seed.growthTime;
+        cropData.growthStages = seed.growthStages;
+        cropData.harvestCount = seed.harvestCount;
+        cropData.harvestedItem = new InventoryItem[] { seed.harvestItem };
 
-        spriteRenderer.sprite = cropData.growthStages[0];
+        //  spriteRenderer.sprite = cropData.growthStages[0];
         StartCoroutine(GrowCrop());
     }
 
@@ -41,12 +55,12 @@ public class CropSpot : MonoBehaviour
             growthTimer += Time.deltaTime;
 
             int stageIndex = Mathf.FloorToInt((growthTimer / cropData.growthTime) * cropData.growthStages.Length);
-            spriteRenderer.sprite = cropData.growthStages[Mathf.Clamp(stageIndex, 0, cropData.growthStages.Length - 1)];
+           // spriteRenderer.sprite = cropData.growthStages[Mathf.Clamp(stageIndex, 0, cropData.growthStages.Length - 1)];
 
             yield return null;
         }
 
-        spriteRenderer.sprite = cropData.growthStages[^1];
+       // spriteRenderer.sprite = cropData.growthStages[^1];
     }
 
     public void HarvestCrop()
@@ -60,6 +74,6 @@ public class CropSpot : MonoBehaviour
 
         isPlanted = false;
         cropData = null;
-        spriteRenderer.sprite = null;
+     //   spriteRenderer.sprite = null;
     }
 }
