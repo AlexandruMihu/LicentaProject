@@ -1,13 +1,24 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class FarmingManager : Singletone<FarmingManager>
 {
     private PlayerActions actions;
-    public CropSpot CropSpotSelected { get; set; }
+    private int selectedCropIndex = -1;
+    public CropSpot CropSpotSelected
+    {
+        get => cropSpotSelected;
+        set
+        {
+            cropSpotSelected = value;
+            selectedCropIndex = Array.IndexOf(cropSpots, cropSpotSelected); 
+        }
+    }
+    private CropSpot cropSpotSelected;
 
     [Header("References")]
-    [SerializeField] private CropSpot[] cropSpots;
+    [SerializeField] public CropSpot[] cropSpots;
     [SerializeField] private ItemSeed testSeed;
 
     protected override void Awake()
@@ -18,20 +29,14 @@ public class FarmingManager : Singletone<FarmingManager>
 
     private void Start()
     {
-        actions.Farming.Plant.performed += ctx => Handle();
+        actions.Farming.Plant.performed += ctx => PlantSeedAtSpot(selectedCropIndex, testSeed);
+        actions.Farming.Harvest.performed += ctx => HarvestAtSpot(selectedCropIndex);
     }
+
     private void OnDestroy()
     {
-        actions.Farming.Plant.performed -= ctx => Handle();
-    }
-
-    private void Handle()
-    {
-        if(testSeed != null)
-        {
-
-            PlantSeedAtSpot(0, testSeed);
-        }
+        actions.Farming.Plant.performed -= ctx => PlantSeedAtSpot(selectedCropIndex, testSeed);
+        actions.Farming.Harvest.performed -= ctx => HarvestAtSpot(selectedCropIndex);
     }
 
     public void PlantSeedAtSpot(int spotIndex, ItemSeed seed)

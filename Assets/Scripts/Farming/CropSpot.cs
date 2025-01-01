@@ -8,15 +8,28 @@ public class CropSpot : MonoBehaviour
     private ItemSeed currentSeed; 
     private float growthTimer; 
     private bool isPlanted = false;
+    private bool canHarvest = false;
 
     [Header("Visuals")]
-  //  [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private GameObject interactionBox;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject plantInteractionBox;
+    [SerializeField] private GameObject harvestInteractionBox;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
+        
         if (other.CompareTag("Player"))
         {
-            interactionBox.SetActive(true);
+            FarmingManager.Instance.CropSpotSelected = this;
+        }
+
+        if(isPlanted == false)
+        {
+            plantInteractionBox.SetActive(true);
+        }
+        else if (canHarvest == true)
+        {
+            harvestInteractionBox.SetActive(true);
         }
     }
 
@@ -24,13 +37,16 @@ public class CropSpot : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            interactionBox.SetActive(false);
+            plantInteractionBox.SetActive(false);
+            harvestInteractionBox.SetActive(false);
         }
     }
 
     public void PlantSeed(ItemSeed seed)
     {
-        if (isPlanted) return; 
+        if (isPlanted) return;
+
+        plantInteractionBox.SetActive(false);
 
         currentSeed = seed;
         isPlanted = true;
@@ -44,7 +60,7 @@ public class CropSpot : MonoBehaviour
         cropData.harvestCount = seed.harvestCount;
         cropData.harvestedItem = new InventoryItem[] { seed.harvestItem };
 
-        //  spriteRenderer.sprite = cropData.growthStages[0];
+        spriteRenderer.sprite = cropData.growthStages[0];
         StartCoroutine(GrowCrop());
     }
 
@@ -54,13 +70,14 @@ public class CropSpot : MonoBehaviour
         {
             growthTimer += Time.deltaTime;
 
-            int stageIndex = Mathf.FloorToInt((growthTimer / cropData.growthTime) * cropData.growthStages.Length);
-           // spriteRenderer.sprite = cropData.growthStages[Mathf.Clamp(stageIndex, 0, cropData.growthStages.Length - 1)];
+            int stageIndex = Mathf.FloorToInt((growthTimer / cropData.growthTime) * cropData.growthStages.Length - 1);
+            spriteRenderer.sprite = cropData.growthStages[Mathf.Clamp(stageIndex, 0, cropData.growthStages.Length - 2)];
 
             yield return null;
         }
 
-       // spriteRenderer.sprite = cropData.growthStages[^1];
+        canHarvest = true;
+        spriteRenderer.sprite = cropData.growthStages[^1];
     }
 
     public void HarvestCrop()
@@ -72,8 +89,9 @@ public class CropSpot : MonoBehaviour
             Inventory.Instance.AddItem(cropData.harvestedItem[0], 1);
         }
 
+        canHarvest = false;
         isPlanted = false;
         cropData = null;
-     //   spriteRenderer.sprite = null;
+        spriteRenderer.sprite = null;
     }
 }

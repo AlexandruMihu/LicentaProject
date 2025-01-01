@@ -163,6 +163,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Harvest"",
+                    ""type"": ""Button"",
+                    ""id"": ""b94024b4-2b1a-4ca5-b9d1-86d211f19117"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -174,6 +183,17 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Plant"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35ac90c5-6233-4cc7-88ab-fa655dc57324"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Harvest"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -194,6 +214,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         // Farming
         m_Farming = asset.FindActionMap("Farming", throwIfNotFound: true);
         m_Farming_Plant = m_Farming.FindAction("Plant", throwIfNotFound: true);
+        m_Farming_Harvest = m_Farming.FindAction("Harvest", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -394,11 +415,13 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Farming;
     private List<IFarmingActions> m_FarmingActionsCallbackInterfaces = new List<IFarmingActions>();
     private readonly InputAction m_Farming_Plant;
+    private readonly InputAction m_Farming_Harvest;
     public struct FarmingActions
     {
         private @PlayerActions m_Wrapper;
         public FarmingActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Plant => m_Wrapper.m_Farming_Plant;
+        public InputAction @Harvest => m_Wrapper.m_Farming_Harvest;
         public InputActionMap Get() { return m_Wrapper.m_Farming; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -411,6 +434,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Plant.started += instance.OnPlant;
             @Plant.performed += instance.OnPlant;
             @Plant.canceled += instance.OnPlant;
+            @Harvest.started += instance.OnHarvest;
+            @Harvest.performed += instance.OnHarvest;
+            @Harvest.canceled += instance.OnHarvest;
         }
 
         private void UnregisterCallbacks(IFarmingActions instance)
@@ -418,6 +444,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Plant.started -= instance.OnPlant;
             @Plant.performed -= instance.OnPlant;
             @Plant.canceled -= instance.OnPlant;
+            @Harvest.started -= instance.OnHarvest;
+            @Harvest.performed -= instance.OnHarvest;
+            @Harvest.canceled -= instance.OnHarvest;
         }
 
         public void RemoveCallbacks(IFarmingActions instance)
@@ -450,5 +479,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     public interface IFarmingActions
     {
         void OnPlant(InputAction.CallbackContext context);
+        void OnHarvest(InputAction.CallbackContext context);
     }
 }

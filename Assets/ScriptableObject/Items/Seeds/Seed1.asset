@@ -24,8 +24,8 @@ MonoBehaviour:
   cropName: Seed1
   cropIcon: {fileID: 21300000, guid: 987d8d597c638b443ba212fd0ee93011, type: 3}
   growthStages:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 54bf49e6de15e1340a5ff008fbbedb54, type: 3}
+  - {fileID: 21300000, guid: ec5b65cf820d70e4783e3d32b392bc72, type: 3}
   growthTime: 20
   harvestItem: {fileID: 11400000, guid: eb25291fc722c954c91ea367ed1c4087, type: 2}
   harvestCount: 2
