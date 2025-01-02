@@ -10,8 +10,6 @@ public class Inventory : Singletone<Inventory>
     [SerializeField] private InventoryItem[] inventoryItems;
     [SerializeField] private GameContent gameContent;
 
-    [Header("testing")] public InventoryItem testItem;
-
     public int InventorySize => inventorySize;
     public InventoryItem[] InventoryItems => inventoryItems;
 
@@ -22,14 +20,6 @@ public class Inventory : Singletone<Inventory>
         inventoryItems = new InventoryItem[inventorySize];
         VerifyItemsForDraw();
         LoadInventory();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            AddItem(testItem, 1);
-        }
     }
 
     public void AddItem(InventoryItem item, int quantity)

@@ -65,9 +65,9 @@ public class InventoryUI:Singletone<InventoryUI>
     public void OpenCloseInventory()
     {
         inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-        if(inventoryPanel.activeSelf == false)
+        descriptionPanel.SetActive(false);
+        if (inventoryPanel.activeSelf == false)
         {
-            descriptionPanel.SetActive(false);
             CurrentSlot = null;
         }
     }

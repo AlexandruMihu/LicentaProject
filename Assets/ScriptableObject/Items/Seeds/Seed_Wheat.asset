@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ddda5bcc939bc4cae54125dca2bdde, type: 3}
+  m_Name: Seed_Wheat
+  m_EditorClassIdentifier: 
+  ID: SeedWheat
+  Name: Wheat Seed
+  Icon: {fileID: 0}
+  Description: Item that i added buut fucked it up => Wheat Seed
+  ItemType: 5
+  isConsumable: 0
+  isStackable: 1
+  MaxStack: 20
+  Quantity: 0
+  cropName: Wheat
+  cropIcon: {fileID: -1959900830, guid: a4727702ab2e8e241aea2d5d31169ba4, type: 3}
+  growthStages:
+  - {fileID: -2030364569, guid: a4727702ab2e8e241aea2d5d31169ba4, type: 3}
+  - {fileID: 2018455245, guid: a4727702ab2e8e241aea2d5d31169ba4, type: 3}
+  - {fileID: 594289570, guid: a4727702ab2e8e241aea2d5d31169ba4, type: 3}
+  - {fileID: 2112328111, guid: a4727702ab2e8e241aea2d5d31169ba4, type: 3}
+  growthTime: 20
+  harvestItem: {fileID: 11400000, guid: 5bd24a5fcfc996645829e824903e441e, type: 2}
+  harvestCount: 3

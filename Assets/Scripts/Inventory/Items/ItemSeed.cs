@@ -15,5 +15,10 @@ public class ItemSeed : InventoryItem
         public Sprite[] growthStages; 
         public float growthTime;      
         public InventoryItem harvestItem; 
-        public int harvestCount; 
-    }
+        public int harvestCount;
+
+        public override void EquipItem()
+        {
+              // you equip the seed that you can only use for farming.
+        }
+}

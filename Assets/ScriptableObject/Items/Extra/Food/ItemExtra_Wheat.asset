@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b492a733ff7044f9ac89f917e3ca52, type: 3}
+  m_Name: ItemExtra_Wheat
+  m_EditorClassIdentifier: 
+  ID: ItemWheat
+  Name: Wheat
+  Icon: {fileID: 2110331282, guid: a4727702ab2e8e241aea2d5d31169ba4, type: 3}
+  Description: Item that i added myself => Wheat
+  ItemType: 3
+  isConsumable: 1
+  isStackable: 1
+  MaxStack: 20
+  Quantity: 0
