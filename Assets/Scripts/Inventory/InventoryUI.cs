@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI:Singletone<InventoryUI>
+public class InventoryUI : Singletone<InventoryUI>
 {
     [Header("Config")]
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private InventorySlot slotPrefab;
-    [SerializeField] private Transform container;
+    [SerializeField] private Transform container; 
+    [SerializeField] private Transform bar;
 
     [Header("Description Panel")]
     [SerializeField] private GameObject descriptionPanel;
@@ -23,6 +21,7 @@ public class InventoryUI:Singletone<InventoryUI>
     public InventorySlot CurrentSlot { get; set; }
 
     private List<InventorySlot> slotList = new List<InventorySlot>();
+    private List<InventorySlot> barSlotList = new List<InventorySlot>(); 
 
     protected override void Awake()
     {
@@ -32,25 +31,49 @@ public class InventoryUI:Singletone<InventoryUI>
 
     private void InitInventory()
     {
-        for(int i = 0; i < Inventory.Instance.InventorySize; i++)
+        for (int i = 0; i < Inventory.Instance.InventorySize; i++)
         {
             InventorySlot slot = Instantiate(slotPrefab, container);
             slot.Index = i;
             slotList.Add(slot);
+
+            if (i < 10)
+            {
+                InventorySlot barSlot = Instantiate(slotPrefab, bar);
+                barSlot.Index = i;
+                barSlotList.Add(barSlot);
+            }
         }
     }
 
-    public void DrawItem(InventoryItem item,int index)
+    public void DrawItem(InventoryItem item, int index)
     {
+        if (index < 0 || index >= slotList.Count) return;
+
         InventorySlot slot = slotList[index];
-        if(item == null)
+        if (item == null)
         {
             slot.ShowSlotInformation(false);
-            return;
+        }
+        else
+        {
+            slot.ShowSlotInformation(true);
+            slot.UpdateSlot(item);
         }
 
-        slot.ShowSlotInformation(true);
-        slot.UpdateSlot(item);
+        if (index < 10 && index < barSlotList.Count)
+        {
+            InventorySlot barSlot = barSlotList[index];
+            if (item == null)
+            {
+                barSlot.ShowSlotInformation(false);
+            }
+            else
+            {
+                barSlot.ShowSlotInformation(true);
+                barSlot.UpdateSlot(item);
+            }
+        }
     }
 
     public void ShowItemDescription(int index)
@@ -66,7 +89,7 @@ public class InventoryUI:Singletone<InventoryUI>
     {
         inventoryPanel.SetActive(!inventoryPanel.activeSelf);
         descriptionPanel.SetActive(false);
-        if (inventoryPanel.activeSelf == false)
+        if (!inventoryPanel.activeSelf)
         {
             CurrentSlot = null;
         }
@@ -75,7 +98,7 @@ public class InventoryUI:Singletone<InventoryUI>
     public void UseItem()
     {
         if (CurrentSlot == null) return;
-        Inventory.Instance.UseItem(CurrentSlot.Index);  
+        Inventory.Instance.UseItem(CurrentSlot.Index);
     }
 
     public void RemoveItem()
@@ -92,9 +115,46 @@ public class InventoryUI:Singletone<InventoryUI>
 
     private void SlotSelectedCallback(int slotIndex)
     {
+        if (slotIndex < 0 || slotIndex >= slotList.Count) return;
+
+        if (CurrentSlot != null)
+        {
+            Button previousButton = CurrentSlot.GetComponent<Button>();
+            if (previousButton != null)
+            {
+                previousButton.OnDeselect(null); 
+            }
+
+            if (CurrentSlot.Index < barSlotList.Count)
+            {
+                Button previousBarButton = barSlotList[CurrentSlot.Index].GetComponent<Button>();
+                if (previousBarButton != null)
+                {
+                    previousBarButton.OnDeselect(null);
+                }
+            }
+        }
+
         CurrentSlot = slotList[slotIndex];
         ShowItemDescription(slotIndex);
+
+        Button newButton = CurrentSlot.GetComponent<Button>();
+        if (newButton != null)
+        {
+            newButton.OnSelect(null);
+        }
+
+        if (slotIndex < barSlotList.Count)
+        {
+            Button barButton = barSlotList[slotIndex].GetComponent<Button>();
+            if (barButton != null)
+            {
+                barButton.OnSelect(null);
+            }
+        }
     }
+
+
 
     private void OnEnable()
     {
@@ -105,6 +165,4 @@ public class InventoryUI:Singletone<InventoryUI>
     {
         InventorySlot.OnSlotSelectedEvent -= SlotSelectedCallback;
     }
-
 }
-
