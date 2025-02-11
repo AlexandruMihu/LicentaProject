@@ -18919,6 +18919,18 @@ MonoBehaviour:
   - Name: Milk
     Item: {fileID: 11400000, guid: 70707743f7d264a4794bd9288210fbf0, type: 2}
     Cost: 2
+  - Name: Apple Seeds
+    Item: {fileID: 11400000, guid: 36fcdf2c721bdc042bd8b6e4fce93715, type: 2}
+    Cost: 2
+  - Name: Wheat Seeds
+    Item: {fileID: 11400000, guid: 84e679979f6fa784bb622ea28fe3e92f, type: 2}
+    Cost: 2
+  - Name: Pickaxe
+    Item: {fileID: 11400000, guid: 32f5c9a485e1e824ea41ce7a984b479a, type: 2}
+    Cost: 2
+  - Name: Book
+    Item: {fileID: 11400000, guid: a40695849cb881143b827ff3a050dcc3, type: 2}
+    Cost: 2
 --- !u!1001 &712288365
 PrefabInstance:
   m_ObjectHideFlags: 0

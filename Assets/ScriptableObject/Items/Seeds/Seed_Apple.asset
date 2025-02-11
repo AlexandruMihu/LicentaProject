@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: SeedApple
   Name: Apple Seed
-  Icon: {fileID: 0}
+  Icon: {fileID: 301316618, guid: a4727702ab2e8e241aea2d5d31169ba4, type: 3}
   Description: seeds for growing apples that are not actually apples
   ItemType: 5
   isConsumable: 0

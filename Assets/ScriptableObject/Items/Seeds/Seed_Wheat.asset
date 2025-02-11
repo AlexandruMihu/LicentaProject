@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: SeedWheat
   Name: Wheat Seed
-  Icon: {fileID: 0}
+  Icon: {fileID: -1959900830, guid: a4727702ab2e8e241aea2d5d31169ba4, type: 3}
   Description: Item that i added buut fucked it up => Wheat Seed
   ItemType: 5
   isConsumable: 0
