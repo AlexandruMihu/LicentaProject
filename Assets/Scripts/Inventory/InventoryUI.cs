@@ -37,12 +37,26 @@ public class InventoryUI : Singletone<InventoryUI>
             slot.Index = i;
             slotList.Add(slot);
 
+            DisableButtonNavigation(slot);
+
             if (i < 10)
             {
                 InventorySlot barSlot = Instantiate(slotPrefab, bar);
                 barSlot.Index = i;
                 barSlotList.Add(barSlot);
+
+                DisableButtonNavigation(barSlot);
             }
+        }
+    }
+
+    private void DisableButtonNavigation(InventorySlot slot)
+    {
+        Button button = slot.GetComponent<Button>();
+        if (button != null)
+        {
+            Navigation noNav = new Navigation { mode = Navigation.Mode.None };
+            button.navigation = noNav;
         }
     }
 

@@ -19,6 +19,6 @@ public class ItemSeed : InventoryItem
 
         public override void EquipItem()
         {
-              // you equip the seed that you can only use for farming.
+           
         }
 }

@@ -11,7 +11,7 @@ public class CropSpot : MonoBehaviour
     private bool canHarvest = false;
 
     [Header("Visuals")]
-    [SerializeField] private SpriteRenderer cropSpriteRenderer; 
+    [SerializeField] private SpriteRenderer cropSpriteRenderer;
     [SerializeField] private GameObject plantInteractionBox;
     [SerializeField] private GameObject harvestInteractionBox;
 
@@ -24,13 +24,28 @@ public class CropSpot : MonoBehaviour
 
         if (!isPlanted)
         {
-            plantInteractionBox.SetActive(true);
+            if (InventoryUI.Instance != null && InventoryUI.Instance.CurrentSlot != null)
+            {
+                int index = InventoryUI.Instance.CurrentSlot.Index;
+
+                if (Inventory.Instance != null && index >= 0 && index < Inventory.Instance.InventoryItems.Length)
+                {
+                    InventoryItem selectedItem = Inventory.Instance.InventoryItems[index];
+
+                   if (selectedItem != null && selectedItem.ItemType == ItemType.Seed)
+                    {
+                        plantInteractionBox.SetActive(true);
+                    }
+                }
+            }
         }
-        else if (canHarvest)
+
+        if (canHarvest)
         {
             harvestInteractionBox.SetActive(true);
         }
     }
+
 
     private void OnTriggerExit2D(Collider2D other)
     {
