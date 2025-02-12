@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ public class InventoryUI : Singletone<InventoryUI>
     [Header("Config")]
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private InventorySlot slotPrefab;
-    [SerializeField] private Transform container; 
+    [SerializeField] private Transform container;
     [SerializeField] private Transform bar;
 
     [Header("Description Panel")]
@@ -21,7 +22,7 @@ public class InventoryUI : Singletone<InventoryUI>
     public InventorySlot CurrentSlot { get; set; }
 
     private List<InventorySlot> slotList = new List<InventorySlot>();
-    private List<InventorySlot> barSlotList = new List<InventorySlot>(); 
+    private List<InventorySlot> barSlotList = new List<InventorySlot>();
 
     protected override void Awake()
     {
@@ -136,7 +137,7 @@ public class InventoryUI : Singletone<InventoryUI>
             Button previousButton = CurrentSlot.GetComponent<Button>();
             if (previousButton != null)
             {
-                previousButton.OnDeselect(null); 
+                previousButton.OnDeselect(null);
             }
 
             if (CurrentSlot.Index < barSlotList.Count)
@@ -168,6 +169,30 @@ public class InventoryUI : Singletone<InventoryUI>
         }
     }
 
+    public void SortItems()
+    {
+        InventoryItem[] sortedItems = Inventory.Instance.InventoryItems
+            .Where(item => item != null)
+            .OrderBy(item => item.Name)
+            .ToArray();
+
+        for (int i = 0; i < Inventory.Instance.InventorySize; i++)
+        {
+            Inventory.Instance.InventoryItems[i] = null;
+        }
+
+        for (int i = 0; i < sortedItems.Length; i++)
+        {
+            Inventory.Instance.InventoryItems[i] = sortedItems[i];
+        }
+
+        for (int i = 0; i < Inventory.Instance.InventorySize; i++)
+        {
+            DrawItem(Inventory.Instance.InventoryItems[i], i);
+        }
+
+        Inventory.Instance.SaveInventory();
+    }
 
 
     private void OnEnable()

@@ -151,7 +151,7 @@ public class Inventory : Singletone<Inventory>
         }
     }
 
-    private void SaveInventory()
+    public void SaveInventory()
     {
         InventoryData saveData = new InventoryData();
         saveData.ItemContent = new string[inventorySize];
