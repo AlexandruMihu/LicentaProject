@@ -19,6 +19,9 @@ public class QuestManager:Singletone<QuestManager>
     [SerializeField] private QuestCardPlayer questCardPlayerPrefab;
     [SerializeField] private Transform playerQuestContainer;
 
+    [Header("Completion Reward Sprite")]
+    [SerializeField] private GameObject allQuestsCompletedSprite;
+
     private void Start()
     {
         LoadQuestIntoNPCPanel();
@@ -59,6 +62,27 @@ public class QuestManager:Singletone<QuestManager>
             QuestCard npcCard = Instantiate(questCardNpcPrefab,npcPanelContainer);
             npcCard.ConfigQuestUI(quests[i]);
         }
+    }
+
+    private bool AllQuestsCompleted()
+    {
+        foreach (Quest quest in quests)
+        {
+            if (!quest.QuestCompleted)
+                return false;
+        }
+        return true;
+    }
+
+    public void CheckIfAllQuestsClaimed()
+    {
+        foreach (Quest quest in quests)
+        {
+            if (!quest.QuestCompleted || !quest.RewardClaimed)
+                return;
+        }
+
+        allQuestsCompletedSprite.SetActive(true);
     }
 
     private void OnEnable()

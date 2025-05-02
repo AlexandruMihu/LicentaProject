@@ -52,7 +52,6 @@ public class ShopCard:MonoBehaviour
 
     public void Add()
     {
-        Console.WriteLine("yes");
         float buyCost = initialCost * (quantity + 1);
         if(CoinManager.Instance.Coins >= buyCost )
         {

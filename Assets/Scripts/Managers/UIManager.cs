@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject playerQuestPanel;
     [SerializeField] private GameObject shopPanel;
     [SerializeField] private GameObject craftingPanel;
+    [SerializeField] private GameObject gameCompletedPanel;
 
     private void Update()
     {
@@ -49,6 +50,11 @@ public class UIManager : MonoBehaviour
         {
             OpenCloseStatsPanel();
         }
+    }
+
+    public void OpenCloseGameCompletedPanel()
+    {
+        gameCompletedPanel.SetActive(!gameCompletedPanel.activeSelf);
     }
 
     public void OpenCloseStatsPanel()

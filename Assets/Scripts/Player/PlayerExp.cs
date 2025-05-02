@@ -10,14 +10,6 @@ public class PlayerExp : MonoBehaviour
     [Header("Config")]
     [SerializeField] private PlayerStats stats;
 
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            AddExperience(300);
-        }
-    }
-
     public void AddExperience(float amount)
     {
         stats.TotalExp += amount;
@@ -34,7 +26,7 @@ public class PlayerExp : MonoBehaviour
         stats.Level++;
         stats.AttributePoints++;
         float currentExpRequired = stats.NextLevelExp;
-        float newNextLevelExp = Mathf.Round(currentExpRequired + stats.NextLevelExp * (stats.ExpMultiplier / 100));
+        float newNextLevelExp = Mathf.Round(currentExpRequired + currentExpRequired * (stats.ExpMultiplier / 100));
         stats.NextLevelExp = newNextLevelExp;
     }
 }

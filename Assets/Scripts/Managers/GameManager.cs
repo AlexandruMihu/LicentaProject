@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singletone<GameManager>
 {
@@ -11,13 +12,32 @@ public class GameManager : Singletone<GameManager>
     [SerializeField] private Player player;
 
     public Player Player => player;
+    private PlayerActions actions;
 
-    private void Update()
+    protected override void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            player.ResetPlayer();
-        }
+        base.Awake();
+        actions = new PlayerActions();
+    }
+
+    private void Start()
+    {
+        actions.General.MainMenu.performed += ctx => QuitGame();
+        actions.General.ResetPlayer.performed += ctx => player.ResetPlayer();
+        actions.General.AddExperience.performed += ctx => AddPlayerExp(380);
+
+    }
+
+    private void OnDestroy()
+    {
+        actions.General.MainMenu.performed -= ctx => QuitGame();
+        actions.General.ResetPlayer.performed -= ctx => player.ResetPlayer();
+        actions.General.AddExperience.performed -= ctx => AddPlayerExp(380);
+    }
+
+    public void QuitGame()
+    {
+        SceneManager.LoadSceneAsync("Main Menu Scene");
     }
 
     public void AddPlayerExp(float expAmount)
@@ -26,4 +46,13 @@ public class GameManager : Singletone<GameManager>
         playerExp.AddExperience(expAmount);
     }
 
+    private void OnEnable()
+    {
+        actions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        actions.Disable();
+    }
 }

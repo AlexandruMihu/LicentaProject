@@ -37,11 +37,16 @@ public class QuestCardPlayer : QuestCard
 
     public void ClaimQuest()
     {
+        QuestToComplete.RewardClaimed = true;
+
         GameManager.Instance.AddPlayerExp(QuestToComplete.ExpReward);
-        Inventory.Instance.AddItem(QuestToComplete.ItemReward.Item,QuestToComplete.ItemReward.Quantity);
+        Inventory.Instance.AddItem(QuestToComplete.ItemReward.Item, QuestToComplete.ItemReward.Quantity);
         CoinManager.Instance.AddCoins(QuestToComplete.GoldReward);
         gameObject.SetActive(false);
+
+        QuestManager.Instance.CheckIfAllQuestsClaimed();
     }
+
 
     private void QuestCompletedCheck()
     {

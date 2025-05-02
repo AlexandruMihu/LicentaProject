@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -74,7 +75,7 @@ public class CropSpot : MonoBehaviour
         cropData.harvestCount = seed.harvestCount;
         cropData.harvestedItem = new InventoryItem[] { seed.harvestItem };
 
-        cropSpriteRenderer.sprite = cropData.growthStages[0]; // Set the initial crop sprite
+        cropSpriteRenderer.sprite = cropData.growthStages[0];
         StartCoroutine(GrowCrop());
     }
 
@@ -86,7 +87,7 @@ public class CropSpot : MonoBehaviour
 
             int stageIndex = Mathf.FloorToInt((growthTimer / cropData.growthTime) * cropData.growthStages.Length - 1);
             cropSpriteRenderer.sprite = cropData.growthStages[Mathf.Clamp(stageIndex, 0, cropData.growthStages.Length - 2)];
-
+            
             yield return null;
         }
 
@@ -97,16 +98,13 @@ public class CropSpot : MonoBehaviour
     public void HarvestCrop()
     {
         if (!isPlanted || growthTimer < cropData.growthTime) return;
-
-        for (int i = 0; i < cropData.harvestCount; i++)
-        {
-            Inventory.Instance.AddItem(cropData.harvestedItem[0], 1);
-        }
-
+        
+        Inventory.Instance.AddItem(cropData.harvestedItem[0], cropData.harvestCount);
+      
         canHarvest = false;
         isPlanted = false;
         cropData = null;
-        cropSpriteRenderer.sprite = null; // Clear the crop sprite
+        cropSpriteRenderer.sprite = null;
         harvestInteractionBox.SetActive(false);
     }
 }

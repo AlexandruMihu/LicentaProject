@@ -198,6 +198,74 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""General"",
+            ""id"": ""95de5ee6-8a69-4cd4-b73f-204531b0d65f"",
+            ""actions"": [
+                {
+                    ""name"": ""MainMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4291867-d481-49e5-b719-8b9c6ea6d7c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetPlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""52a03d8b-ee51-4e3d-acd3-05ab0a48b3db"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AddExperience"",
+                    ""type"": ""Button"",
+                    ""id"": ""e1e153fe-8f00-49c7-b9b3-baca89c917ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1a7af81c-3f87-42ec-b151-e1e0f5ba1b2c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MainMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3792f6f-5e0c-441b-944d-d814b2f3a49c"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8b73dde-5874-41aa-943a-5759d490ac8c"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddExperience"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -215,6 +283,11 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_Farming = asset.FindActionMap("Farming", throwIfNotFound: true);
         m_Farming_Plant = m_Farming.FindAction("Plant", throwIfNotFound: true);
         m_Farming_Harvest = m_Farming.FindAction("Harvest", throwIfNotFound: true);
+        // General
+        m_General = asset.FindActionMap("General", throwIfNotFound: true);
+        m_General_MainMenu = m_General.FindAction("MainMenu", throwIfNotFound: true);
+        m_General_ResetPlayer = m_General.FindAction("ResetPlayer", throwIfNotFound: true);
+        m_General_AddExperience = m_General.FindAction("AddExperience", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -464,6 +537,68 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         }
     }
     public FarmingActions @Farming => new FarmingActions(this);
+
+    // General
+    private readonly InputActionMap m_General;
+    private List<IGeneralActions> m_GeneralActionsCallbackInterfaces = new List<IGeneralActions>();
+    private readonly InputAction m_General_MainMenu;
+    private readonly InputAction m_General_ResetPlayer;
+    private readonly InputAction m_General_AddExperience;
+    public struct GeneralActions
+    {
+        private @PlayerActions m_Wrapper;
+        public GeneralActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MainMenu => m_Wrapper.m_General_MainMenu;
+        public InputAction @ResetPlayer => m_Wrapper.m_General_ResetPlayer;
+        public InputAction @AddExperience => m_Wrapper.m_General_AddExperience;
+        public InputActionMap Get() { return m_Wrapper.m_General; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GeneralActions set) { return set.Get(); }
+        public void AddCallbacks(IGeneralActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GeneralActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GeneralActionsCallbackInterfaces.Add(instance);
+            @MainMenu.started += instance.OnMainMenu;
+            @MainMenu.performed += instance.OnMainMenu;
+            @MainMenu.canceled += instance.OnMainMenu;
+            @ResetPlayer.started += instance.OnResetPlayer;
+            @ResetPlayer.performed += instance.OnResetPlayer;
+            @ResetPlayer.canceled += instance.OnResetPlayer;
+            @AddExperience.started += instance.OnAddExperience;
+            @AddExperience.performed += instance.OnAddExperience;
+            @AddExperience.canceled += instance.OnAddExperience;
+        }
+
+        private void UnregisterCallbacks(IGeneralActions instance)
+        {
+            @MainMenu.started -= instance.OnMainMenu;
+            @MainMenu.performed -= instance.OnMainMenu;
+            @MainMenu.canceled -= instance.OnMainMenu;
+            @ResetPlayer.started -= instance.OnResetPlayer;
+            @ResetPlayer.performed -= instance.OnResetPlayer;
+            @ResetPlayer.canceled -= instance.OnResetPlayer;
+            @AddExperience.started -= instance.OnAddExperience;
+            @AddExperience.performed -= instance.OnAddExperience;
+            @AddExperience.canceled -= instance.OnAddExperience;
+        }
+
+        public void RemoveCallbacks(IGeneralActions instance)
+        {
+            if (m_Wrapper.m_GeneralActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGeneralActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GeneralActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GeneralActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GeneralActions @General => new GeneralActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -480,5 +615,11 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     {
         void OnPlant(InputAction.CallbackContext context);
         void OnHarvest(InputAction.CallbackContext context);
+    }
+    public interface IGeneralActions
+    {
+        void OnMainMenu(InputAction.CallbackContext context);
+        void OnResetPlayer(InputAction.CallbackContext context);
+        void OnAddExperience(InputAction.CallbackContext context);
     }
 }

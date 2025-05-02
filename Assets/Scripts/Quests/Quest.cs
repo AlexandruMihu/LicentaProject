@@ -23,6 +23,7 @@ public class Quest : ScriptableObject
     [HideInInspector] public int CurrentStatus;
     [HideInInspector] public bool QuestCompleted;
     [HideInInspector] public bool QuestAccepted;
+    [HideInInspector] public bool RewardClaimed;
 
     public void AddProgress(int amount)
     {
@@ -45,6 +46,7 @@ public class Quest : ScriptableObject
         QuestCompleted = false;
         QuestAccepted = false;
         CurrentStatus = 0;
+        RewardClaimed = false;
     }
 }
 

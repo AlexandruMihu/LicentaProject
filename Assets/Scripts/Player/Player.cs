@@ -11,10 +11,6 @@ public class Player : MonoBehaviour
     [Header("Config")]
     [SerializeField] private PlayerStats stats;
 
-    [Header("Test")]
-    public ItemHealthPotion HealthPotion;
-    public ItemManaPotion ManaPotion;
-
     public PlayerStats Stats => stats;
     public PlayerMana PlayerMana { get; private set; }
     public PlayerHealth PlayerHealth { get; private set; }
@@ -30,22 +26,6 @@ public class Player : MonoBehaviour
         animations = GetComponent<PlayerAnimations>();
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.T)) {
-            if (HealthPotion.UseItem())
-            {
-                Debug.Log("using health potion");
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Y))
-        {
-            if (ManaPotion.UseItem())
-            {
-                Debug.Log("using mana potion");
-            }
-        }
-    }
     public void ResetPlayer()
     {
         stats.ResetPlayer();

@@ -27,6 +27,4 @@ public class Waypoint : MonoBehaviour
     {
         return EntityPosition + points[pointIndex];
     }
-
-
 }

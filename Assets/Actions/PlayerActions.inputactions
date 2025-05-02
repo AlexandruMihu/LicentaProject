@@ -176,6 +176,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "General",
+            "id": "95de5ee6-8a69-4cd4-b73f-204531b0d65f",
+            "actions": [
+                {
+                    "name": "MainMenu",
+                    "type": "Button",
+                    "id": "b4291867-d481-49e5-b719-8b9c6ea6d7c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ResetPlayer",
+                    "type": "Button",
+                    "id": "52a03d8b-ee51-4e3d-acd3-05ab0a48b3db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AddExperience",
+                    "type": "Button",
+                    "id": "e1e153fe-8f00-49c7-b9b3-baca89c917ae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1a7af81c-3f87-42ec-b151-e1e0f5ba1b2c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MainMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e3792f6f-5e0c-441b-944d-d814b2f3a49c",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetPlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8b73dde-5874-41aa-943a-5759d490ac8c",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AddExperience",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
