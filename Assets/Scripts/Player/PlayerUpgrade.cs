@@ -23,6 +23,7 @@ public class PlayerUpgrade : MonoBehaviour
         stats.Mana = stats.MaxMana;
         stats.CriticalChance += settings[upgradeIndex].CChanceUpgrade;
         stats.CriticalDamage += settings[upgradeIndex].CDamageUpgrade;
+        stats.SaveStats();
     }
 
     private void AttributeCallback(AttributeType attributeType)
@@ -45,6 +46,7 @@ public class PlayerUpgrade : MonoBehaviour
         }
 
         stats.AttributePoints--;
+        stats.SaveStats();
         OnPlayerUpgradeEvent?.Invoke();
     }
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ddbd578acff6dd439035a405ca42997, type: 3}
+  m_Name: Quest_Craft_1_Item
+  m_EditorClassIdentifier: 
+  Name: Crafting Journey Starts
+  ID: Craft1Item
+  QuestGoal: 1
+  Description: Craft 1 item
+  GoldReward: 100
+  ExpReward: 100
+  ItemReward:
+    Item: {fileID: 11400000, guid: 40ed46098b686f543815d3b40f647762, type: 2}
+    Quantity: 1
+  CurrentStatus: 0
+  QuestCompleted: 0
+  QuestAccepted: 0
+  RewardClaimed: 0

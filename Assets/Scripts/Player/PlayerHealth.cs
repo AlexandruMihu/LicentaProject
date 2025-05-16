@@ -34,12 +34,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             stats.Health = 0;
             PlayerDead();
         }
+        stats.SaveStats();
     }
 
     public void RestoreHealth(float amount) 
     {
         stats.Health += amount;
         stats.Health = Mathf.Min(stats.Health, stats.MaxHealth);
+        stats.SaveStats();
     }
 
     public bool CanRestoreHealth()

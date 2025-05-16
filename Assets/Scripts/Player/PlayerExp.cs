@@ -19,6 +19,7 @@ public class PlayerExp : MonoBehaviour
             stats.CurrentExp -= stats.NextLevelExp;
             NextLevel();
         }
+        stats.SaveStats();
     }
 
     private void NextLevel()
@@ -28,5 +29,6 @@ public class PlayerExp : MonoBehaviour
         float currentExpRequired = stats.NextLevelExp;
         float newNextLevelExp = Mathf.Round(currentExpRequired + currentExpRequired * (stats.ExpMultiplier / 100));
         stats.NextLevelExp = newNextLevelExp;
+        stats.SaveStats();
     }
 }

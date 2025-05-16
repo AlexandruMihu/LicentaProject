@@ -22,6 +22,7 @@ public class PlayerMana : MonoBehaviour
     {
         stats.Mana = Mathf.Max(0, stats.Mana - amount);
         CurrentMana = stats.Mana;
+        stats.SaveStats();
     }
     private void Update()
     {
@@ -35,6 +36,7 @@ public class PlayerMana : MonoBehaviour
     {
         stats.Mana += amount;
         stats.Mana = Mathf.Min(stats.Mana,stats.MaxMana);
+        stats.SaveStats() ;
     }
 
     public bool CanRestoreMana()

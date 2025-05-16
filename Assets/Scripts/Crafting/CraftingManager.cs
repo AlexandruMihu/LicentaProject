@@ -59,6 +59,9 @@ public class CraftingManager : Singletone<CraftingManager>
             Inventory.Instance.ConsumeItem(RecipeSelected.Item2.ID);
         }
 
+        QuestManager.Instance.AddProgress("Craft1Item", 1);
+        QuestManager.Instance.AddProgress("Craft2Items", 1);
+
         Inventory.Instance.AddItem(RecipeSelected.FinalItem,RecipeSelected.FinalItemAmount);
         ShowRecipe(RecipeSelected);
     }

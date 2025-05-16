@@ -106,5 +106,8 @@ public class CropSpot : MonoBehaviour
         cropData = null;
         cropSpriteRenderer.sprite = null;
         harvestInteractionBox.SetActive(false);
+
+        QuestManager.Instance.AddProgress("Harvest1Plant", 1);
+        QuestManager.Instance.AddProgress("Harvest2Plants", 1);
     }
 }

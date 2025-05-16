@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        stats.LoadStats();
         PlayerMana = GetComponent<PlayerMana>();
         PlayerHealth = GetComponent<PlayerHealth>();
         PlayerAttack = GetComponent<PlayerAttack>();
