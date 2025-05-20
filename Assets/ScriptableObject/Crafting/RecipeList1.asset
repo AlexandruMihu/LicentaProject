@@ -26,4 +26,32 @@ MonoBehaviour:
     Item2: {fileID: 11400000, guid: 5497dc94e754c15478ce0bcaaea823b8, type: 2}
     Item2Amount: 4
     FinalItem: {fileID: 11400000, guid: 70707743f7d264a4794bd9288210fbf0, type: 2}
+    FinalItemAmount: 1
+  - Name: Sword
+    Item1: {fileID: 11400000, guid: 36fcdf2c721bdc042bd8b6e4fce93715, type: 2}
+    Item1Amount: 2
+    Item2: {fileID: 11400000, guid: eb25291fc722c954c91ea367ed1c4087, type: 2}
+    Item2Amount: 4
+    FinalItem: {fileID: 11400000, guid: d33fb709d898ad940813e0620ed446b6, type: 2}
+    FinalItemAmount: 1
+  - Name: Thunder Scroll
+    Item1: {fileID: 11400000, guid: a7d41b1df6564d14181ff599a3c04214, type: 2}
+    Item1Amount: 2
+    Item2: {fileID: 11400000, guid: b9b4fe900a0d5f64f923ff48a79753b0, type: 2}
+    Item2Amount: 4
+    FinalItem: {fileID: 11400000, guid: 2e2bb3917b869524f83e344c869a3805, type: 2}
+    FinalItemAmount: 1
+  - Name: Bow
+    Item1: {fileID: 11400000, guid: 8d250cf997c140f4c8d2e85feb5684d3, type: 2}
+    Item1Amount: 2
+    Item2: {fileID: 11400000, guid: bed27259026d6b9468fcc7026c1701cc, type: 2}
+    Item2Amount: 4
+    FinalItem: {fileID: 11400000, guid: f3a32b531d3c0b3408aa72d69187e94a, type: 2}
+    FinalItemAmount: 1
+  - Name: Sushi
+    Item1: {fileID: 11400000, guid: bed27259026d6b9468fcc7026c1701cc, type: 2}
+    Item1Amount: 2
+    Item2: {fileID: 11400000, guid: c1039f32bea3d8d4891cbb0ee781c1cc, type: 2}
+    Item2Amount: 4
+    FinalItem: {fileID: 11400000, guid: e4edf51c09e447143b4121e1a1f89d23, type: 2}
     FinalItemAmount: 0

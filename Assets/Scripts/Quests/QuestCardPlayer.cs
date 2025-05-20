@@ -42,6 +42,7 @@ public class QuestCardPlayer : QuestCard
         GameManager.Instance.AddPlayerExp(QuestToComplete.ExpReward);
         Inventory.Instance.AddItem(QuestToComplete.ItemReward.Item, QuestToComplete.ItemReward.Quantity);
         CoinManager.Instance.AddCoins(QuestToComplete.GoldReward);
+        QuestManager.Instance.SaveQuests();
         gameObject.SetActive(false);
 
         QuestManager.Instance.CheckIfAllQuestsClaimed();

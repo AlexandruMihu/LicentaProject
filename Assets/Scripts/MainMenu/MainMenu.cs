@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class MainMenu : MonoBehaviour
 {
     private const string COIN_KEY = "Coins";
     private readonly string INVENTORY_KEY_DATA = "MY_INVENTORY";
     private readonly string PLAYER_STATS_KEY = "PLAYER_STATS";
+    private readonly string QUEST_KEY = "MY_QUESTS";
     public void PlayGame()
     {
         SceneManager.LoadSceneAsync("Game Scene");
@@ -22,7 +22,8 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        SaveGame.Save(COIN_KEY, 0);
+        if (SaveGame.Exists(COIN_KEY))
+            SaveGame.Save(COIN_KEY, 0);
         
         if (SaveGame.Exists(INVENTORY_KEY_DATA))
         {
@@ -33,6 +34,12 @@ public class MainMenu : MonoBehaviour
         {
             SaveGame.Delete(PLAYER_STATS_KEY);
         }
+
+        if (SaveGame.Exists(QUEST_KEY))
+        { 
+            SaveGame.Delete(QUEST_KEY);
+        }
+
         PlayGame();
     }
 }
