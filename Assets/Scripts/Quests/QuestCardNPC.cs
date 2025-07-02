@@ -15,7 +15,7 @@ public class QuestCardNPC:QuestCard
         base.ConfigQuestUI(quest);
         questReward.text = $"- {quest.GoldReward} Gold\n" +
             $"- {quest.ExpReward} Exp\n" +
-            $"- x{quest.ItemReward.Item.Quantity} {quest.ItemReward.Item.Name}";
+            $"- x{quest.ItemReward.Quantity} {quest.ItemReward.Item.Name}";
     }
 
     public void AcceptQuest()

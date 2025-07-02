@@ -87526,22 +87526,22 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 177e983ffb4c56d46b6a8e5fa4ee2368, type: 2}
   settings:
   - Name: Strength
-    DamageUpgrade: 2
-    HealthUpgrade: 1
+    DamageUpgrade: 1.5
+    HealthUpgrade: 2
     ManaUpgrade: 1
-    CChanceUpgrade: 0.2
+    CChanceUpgrade: 0.3
     CDamageUpgrade: 1
   - Name: Dexterity
-    DamageUpgrade: 1
-    HealthUpgrade: 2
-    ManaUpgrade: 2
-    CChanceUpgrade: 0.5
-    CDamageUpgrade: 0.5
+    DamageUpgrade: 1.2
+    HealthUpgrade: 2.5
+    ManaUpgrade: 1.5
+    CChanceUpgrade: 0.6
+    CDamageUpgrade: 0.7
   - Name: Intelligence
     DamageUpgrade: 1
-    HealthUpgrade: 1
-    ManaUpgrade: 4
-    CChanceUpgrade: 1
+    HealthUpgrade: 1.5
+    ManaUpgrade: 3
+    CChanceUpgrade: 0.8
     CDamageUpgrade: 0.5
 --- !u!1 &1989547240
 GameObject:
